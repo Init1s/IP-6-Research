@@ -150,11 +150,14 @@
       "paragraphs": [
         "The original collection discusses Alzheimer’s disease, Parkinson’s disease, and multiple sclerosis as areas of IP6-related investigation and patent proposals. These topics should be understood as research interests, rather than established therapeutic uses.",
         "Work from Manju Reddy’s laboratory reported neuroprotective effects in a Parkinson’s disease cell-culture model. Research associated with Felix Grases proposed a relationship between IP6 availability and Alzheimer’s disease, and a paper published in 2011 examined IP6 in experimental Alzheimer’s models.",
-        "JoAnne McLaurin and colleagues at the University of Toronto studied inositol interactions with amyloid-beta and its aggregation and toxicity. Findings for a particular inositol form or model should not be generalized to every inositol compound or to people with neurodegenerative disease."
+        "JoAnne McLaurin and colleagues at the University of Toronto studied inositol interactions with amyloid-beta and its aggregation and toxicity. Findings for a particular inositol form or model should not be generalized to every inositol compound or to people with neurodegenerative disease.",
+        "A 2025 laboratory study by Samantha Godoy, Miquel Adrover, and colleagues at the University of the Balearic Islands in Spain examined IP6 as a chelator of ferric iron, a metal whose dysregulation is implicated in both Parkinson’s and Alzheimer’s disease. In aqueous solutions, IP6 slowed the iron-catalyzed oxidation of dopamine and ascorbic acid and changed the course of iron-induced alpha-synuclein aggregation, favoring fibrils over the oligomeric forms the authors consider more toxic. The paper also summarizes earlier reports of IP6 inhibiting the BACE1 enzyme and amyloid-beta accumulation in Alzheimer’s disease models.",
+        "These are test-tube chemistry findings rather than results in animals or people. The authors note that IP6 bioavailability, its passage across the blood-brain barrier, and the dose-response relationship in neurodegeneration remain open questions."
       ],
       "refs": [
         "18255213",
-        "20930278"
+        "20930278",
+        "40429940"
       ]
     },
     {
