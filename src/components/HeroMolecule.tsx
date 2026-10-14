@@ -28,7 +28,7 @@ export default function HeroMolecule() {
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let width = 0, height = 0, frame = 0, previous = 0, angle = .35;
+    let width = 0, height = 0, frame = 0, previous = 0, angle = .35, elapsed = 0;
     let visible = true;
 
     const draw = () => {
@@ -36,7 +36,8 @@ export default function HeroMolecule() {
       if (!width || !height) return;
       const scale = Math.min(width, height) / 14.8;
       const cos = Math.cos(angle), sin = Math.sin(angle);
-      const tilt = -.32;
+      // Slow nod on the tilt axis so the ring's perspective changes as the molecule spins.
+      const tilt = -.32 + Math.sin(elapsed / 5200) * .16;
       const points = atoms.map(atom => {
         const [x, y, z] = atom.position;
         const rx = x * cos + z * sin;
@@ -85,7 +86,11 @@ export default function HeroMolecule() {
     };
 
     const tick = (now: number) => {
-      if (previous) angle += Math.min(now - previous, 64) * Math.PI * 2 / 24000;
+      if (previous) {
+        const step = Math.min(now - previous, 64);
+        angle += step * Math.PI * 2 / 12000;
+        elapsed += step;
+      }
       previous = now;
       draw();
       frame = requestAnimationFrame(tick);
