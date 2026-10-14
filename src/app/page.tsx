@@ -11,6 +11,12 @@ const topics = [
   ["Metabolism & mineral biology", "Glucose metabolism, mineral crystallization, and cardiovascular research.", "/benefits"],
   ["Neuroscience", "Oxidative stress and neuroprotection in preclinical models.", "/benefits#neuroscience"],
 ];
+const chapters: [string, string, string, string][] = [
+  ["What IP6 is", "A phosphate-rich molecule found in cereal grains, legumes, and seeds, and present in human cells.", "/science", "Read the molecular science"],
+  ["How it is studied", "Cell cultures, animal experiments, and human studies each answer a different kind of question.", "/faq", "Learn how to read a study"],
+  ["What has been reported", "Findings across cancer biology, immunology, metabolism, and neuroscience, with their limits.", "/benefits", "Browse the research areas"],
+  ["Where the research began", "Experiments started at the University of Maryland School of Medicine in 1985.", "/scientist", "Meet the scientist"],
+];
 const papers = [
   {
     pmid: "20152024", type: "Human study", year: "2010",
@@ -53,9 +59,14 @@ export default function HomePage() {
           <a className="button hero-research-link" href="#papers">Explore the research <ArrowRight size={18}/></a>
         </div>
       </div>
-      <div className="hero-foundation wrap"><span>IP6 research since 1985</span><span className="hero-photo-credit">IP6 &middot; Rotating molecular model</span></div>
+      <div className="hero-foundation wrap"><span>IP6 research since 1985</span><div className="hero-figure-caption"><p><strong>Figure 1.</strong> Inositol hexaphosphate, C<sub>6</sub>H<sub>18</sub>O<sub>24</sub>P<sub>6</sub>: six phosphate groups bonded to a six-carbon inositol ring.</p><div className="atom-key" aria-label="Atom colors"><span><i className="carbon"/>Carbon</span><span><i className="hydrogen"/>Hydrogen</span><span><i className="oxygen"/>Oxygen</span><span><i className="phosphorus"/>Phosphorus</span></div></div></div>
     </section>
-    <nav className="research-jump-nav wrap" aria-label="Research collection"><a href="#topics">Research topics</a><a href="#papers">Selected papers</a><a href="#background">Scientific background</a></nav>
+    <nav className="research-jump-nav wrap" aria-label="Research collection"><a href="#guide">Start here</a><a href="#topics">Research topics</a><a href="#papers">Selected papers</a><a href="#background">Key terms</a></nav>
+
+    <section className="study-guide wrap" id="guide" aria-labelledby="guide-title">
+      <div className="study-guide-intro"><h2 id="guide-title">A guided introduction</h2><p>New to the subject? Read these four chapters in order. Each one opens a page of the collection.</p></div>
+      <ol className="study-chapters">{chapters.map(([title, description, href, action]) => <li key={title}><h3><Link href={href}>{title}</Link></h3><p>{description}</p><Link href={href} className="chapter-link">{action} <ArrowRight size={15}/></Link></li>)}</ol>
+    </section>
 
     <div className="wrap research-reading-grid">
       <div className="research-main-column">
@@ -78,9 +89,9 @@ export default function HomePage() {
         </section>
       </div>
       <aside className="research-reference-column" aria-label="Scientific context">
-        <section className="reference-block" id="background"><h2>About the molecule</h2>
-<p>IP6 is an inositol ring carrying six phosphate groups. It belongs to a family of inositol phosphates studied in cellular signaling and mineral-binding chemistry.</p><dl className="molecule-definitions"><div><dt>Also known as</dt><dd>InsP6; inositol hexakisphosphate; phytic acid</dd></div><div><dt>Related molecule</dt><dd>Myo-inositol</dd></div></dl><Link href="/science">Molecular mechanisms <ArrowRight size={16}/></Link></section>
-        <section className="reference-block"><h2>Reading the evidence</h2><p>Cell studies examine mechanisms. Animal studies test effects in biological systems. Human studies address clinical questions.</p><p>These forms of evidence answer different questions. Formulation, study design, and sample size matter when interpreting a result.</p><Link href="/faq">Research questions &amp; answers <ArrowRight size={16}/></Link></section>
+        <section className="reference-block" id="background"><h2>Key terms</h2>
+<dl className="molecule-definitions"><div><dt>IP6</dt><dd>Inositol hexaphosphate: an inositol ring carrying six phosphate groups. Also written InsP6 or inositol hexakisphosphate.</dd></div><div><dt>Phytic acid, phytate</dt><dd>The names used for IP6 in food and nutrition research. Phytate is its salt form.</dd></div><div><dt>Inositol</dt><dd>The six-carbon ring at the center of IP6. Myo-inositol is the common form in cells.</dd></div><div><dt>In vitro, in vivo</dt><dd>In vitro means in a dish or test tube. In vivo means in a living animal or person.</dd></div></dl><Link href="/science">Molecular mechanisms <ArrowRight size={16}/></Link></section>
+        <section className="reference-block"><h2>Reading the evidence</h2><p>Each kind of study answers a different question. Evidence builds from the bottom up.</p><ol className="evidence-ladder"><li><strong>Human studies</strong><span>Do effects appear in people? Sample size and design decide how much a result can show.</span></li><li><strong>Animal studies</strong><span>Does the effect occur in a living organism?</span></li><li><strong>Cell studies</strong><span>What happens at the molecular level, and by what mechanism?</span></li></ol><Link href="/faq">Research questions &amp; answers <ArrowRight size={16}/></Link></section>
         <section className="reference-block research-founder"><h2>Research origins</h2><div className="founder-reference"><img src={asset("/source/119434971.jpg")} alt="Professor AbulKalam M. Shamsuddin" width="250" height="320" loading="lazy"/><div><h3>AbulKalam M. Shamsuddin</h3><p>M.B., B.S., PhD</p></div></div><p>Shamsuddin began investigating IP6 and inositol at the University of Maryland School of Medicine in 1985.</p><Link href="/scientist">Scientific biography <ArrowRight size={16}/></Link></section>
       </aside>
     </div>

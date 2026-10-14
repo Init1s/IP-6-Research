@@ -55,7 +55,12 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .hero-overview{margin-top:28px}
 .hero-research-link{background:var(--navy);border-color:var(--navy);color:#fff;border-radius:0}
 .hero-research-link:hover{background:#224760;border-color:#224760}
-.hero-foundation{display:flex;justify-content:space-between;gap:20px;padding-block:20px;font-size:.68rem;color:var(--muted)}
+.hero-foundation{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-block:20px;font-size:.68rem;color:var(--muted)}
+.hero-figure-caption{max-width:470px;text-align:right}
+.hero-figure-caption p{font-size:.78rem;line-height:1.6;color:var(--muted)}
+.hero-figure-caption p strong{color:var(--ink);font-weight:600}
+.hero-figure-caption sub{font-size:.7em;line-height:0}
+.hero-figure-caption .atom-key{justify-content:flex-end;margin-top:8px}
 .hero-photo-credit{text-align:right;line-height:1.7}.hero-photo-credit a{text-decoration:underline;text-underline-offset:3px}
 .hero-foundation>span:first-child{text-transform:uppercase;letter-spacing:.1em;color:var(--gold-deep)}
 .research-reference-column .hero-molecule{margin-block:20px 24px}
@@ -73,6 +78,27 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .atom-key span{display:flex;align-items:center;gap:5px}.atom-key i{display:inline-block;width:7px;height:7px;border-radius:50%}
 .carbon{background:#39424c}.hydrogen{background:white;border:1px solid #8794a5}.oxygen{background:#db342d}.phosphorus{background:#e6a02b}
 .research-jump-nav{display:flex;align-items:center;gap:32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* Guided introduction: a short chapter list in reading order. */
+.study-guide{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;padding-block:40px 44px;border-bottom:1px solid var(--line)}
+.study-guide h2,.index-heading h2{font-family:Georgia,Times New Roman,serif;font-weight:400;letter-spacing:-.02em}
+.study-guide h2{font-size:1.75rem;line-height:1.2}
+.study-guide-intro p{font-size:.92rem;line-height:1.7;color:var(--muted);margin-top:14px;max-width:260px}
+.study-chapters{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px;counter-reset:chapter}
+.study-chapters li{counter-increment:chapter;border-top:2px solid var(--navy);padding-top:14px;display:flex;flex-direction:column}
+.study-chapters li::before{content:"Chapter " counter(chapter);font-size:.72rem;letter-spacing:.02em;color:var(--gold-deep);font-weight:600;line-height:1.5}
+.study-chapters h3{font-family:Georgia,Times New Roman,serif;font-weight:400;font-size:1.25rem;line-height:1.3;letter-spacing:-.015em;margin-top:8px}
+.study-chapters h3 a:hover{text-decoration:underline;text-underline-offset:4px}
+.study-chapters p{font-size:.86rem;line-height:1.65;color:var(--muted);margin-top:10px;flex:1}
+.chapter-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding-block:6px;font-size:.82rem;font-weight:600;color:var(--link)}
+.chapter-link:hover{text-decoration:underline;text-underline-offset:4px}
+.index-heading h2{font-size:1.75rem}
+.evidence-ladder{list-style:none;margin:16px 0 14px;padding:0}
+.evidence-ladder li{position:relative;padding:0 0 16px 20px;border-left:2px solid var(--line);font-size:.84rem;line-height:1.6}
+.evidence-ladder li:last-child{padding-bottom:0}
+.evidence-ladder li::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid #fff}
+.evidence-ladder li:first-child::before{background:var(--navy)}
+.evidence-ladder strong{display:block;color:var(--ink);font-weight:600}
+.evidence-ladder span{display:block;color:var(--muted);margin-top:2px}
 .research-jump-nav a{padding:13px 0;font-size:.88rem;font-weight:600;color:var(--link)}
 .research-jump-nav a:hover{text-decoration:underline;text-underline-offset:4px}
 .research-reading-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:64px;padding-block:36px 52px}
@@ -188,7 +214,7 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .form-notice{margin-top:18px;font-size:.82rem;color:var(--muted)}
 .not-found{min-height:60vh;padding-block:100px}.not-found p{margin:24px 0}
 
-.site-footer{background:#faf9f6;color:var(--ink);border-top:1px solid var(--line);padding:52px 0 24px}
+.site-footer{background:#fff;color:var(--ink);border-top:1px solid var(--line);padding:52px 0 24px}
 .footer-top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:64px;margin-bottom:36px}
 .site-footer .brand-logo{background:white;padding:3px}
 .site-footer .brand-wordmark>span{color:var(--muted)}
@@ -207,6 +233,8 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
   .brand-wordmark strong{font-size:15px}.brand-logo{width:64px}.header-contact{display:none}
   .hero-molecule-stage{height:350px}
   .research-reading-grid{gap:36px;grid-template-columns:minmax(0,1fr) 240px}
+  .study-guide{grid-template-columns:220px minmax(0,1fr);gap:32px}
+  .study-chapters{grid-template-columns:1fr 1fr;gap:28px}
   .research-reference-column{padding-left:22px}
   .article-layout{gap:40px;grid-template-columns:200px minmax(0,1fr)}
   .contact-grid,.faq-layout{gap:40px}.footer-top{gap:32px}
@@ -243,16 +271,22 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
   .hero-overview{grid-row:5;width:auto;margin:20px 20px 0}
   .hero-research-link{min-height:48px;font-size:.88rem;width:100%;justify-content:space-between}
   .hero-foundation{grid-row:6;padding-block:22px 18px;font-size:.65rem;gap:12px}
-  .hero-foundation .hero-photo-credit{display:none}
+  .hero-figure-caption{text-align:left;max-width:none}
+  .hero-figure-caption .atom-key{justify-content:flex-start}
+  .hero-foundation{flex-direction:column;align-items:flex-start}
+  .study-guide{grid-template-columns:1fr;gap:22px;padding-block:28px 32px}
+  .study-guide h2{font-size:1.5rem}.study-guide-intro p{max-width:none;font-size:.9rem;margin-top:10px}
+  .study-chapters{grid-template-columns:1fr;gap:22px}
+  .study-chapters h3{font-size:1.2rem}
   .hero-molecule{display:block;border:0;background:transparent;padding:0;width:100%;max-width:430px;justify-self:center}
   .hero-molecule-stage{height:230px}
   .hero-molecule figcaption{display:flex;flex-direction:row;align-items:baseline;justify-content:center;gap:8px;font-size:.72rem;line-height:1.5}
   .hero-molecule figcaption strong{font-size:.9rem}.hero-molecule .chemical-formula{font-size:.85rem}
   .atom-key{justify-content:center;gap:16px;font-size:.7rem;margin-top:9px}
-  .research-jump-nav{gap:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding-block:3px}
+  .research-jump-nav{gap:8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding-block:3px}
   .research-jump-nav a{display:flex;align-items:center;justify-content:center;text-align:center;font-size:.76rem;padding:11px 0;line-height:1.5;min-height:52px}
   .research-reading-grid{padding-block:28px 36px;gap:32px}
-  .index-heading h2{font-size:1.3rem;line-height:1.4}
+  .index-heading h2{font-size:1.5rem;line-height:1.3}
   .index-heading>a{font-size:.78rem}
   .topic-list{grid-template-columns:1fr}
   .topic-entry{padding:15px 0;gap:20px}.topic-entry h3{font-size:1rem}.topic-entry p{font-size:.88rem;line-height:1.55;margin-top:4px}
