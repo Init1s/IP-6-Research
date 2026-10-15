@@ -10,7 +10,7 @@ frontend:
         # that the GitHub Pages deployment uses.
         - export SITE_TARGET=sites
         # Public origin for canonical links and robots.txt.
-        - export SITE_URL="https://ip-6.net"
+        - export SITE_URL="https://www.ip-6.net"
         - npm run build
   artifacts:
     # The app runs on the WEB_COMPUTE platform, which requires the .next folder.
