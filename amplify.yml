@@ -12,9 +12,11 @@ frontend:
         - export SITE_URL="https://${AWS_BRANCH}.${AWS_APP_ID}.amplifyapp.com"
         - npm run build
   artifacts:
-    baseDirectory: out
+    # The app runs on the WEB_COMPUTE platform, which requires the .next folder.
+    baseDirectory: .next
     files:
       - '**/*'
   cache:
     paths:
       - node_modules/**/*
+      - .next/cache/**/*
