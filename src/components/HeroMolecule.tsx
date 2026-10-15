@@ -28,25 +28,36 @@ export default function HeroMolecule() {
     const context = canvas?.getContext("2d");
     if (!canvas || !context) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let width = 0, height = 0, frame = 0, previous = 0, angle = .35, elapsed = 0;
+    let width = 0, height = 0, frame = 0, previous = 0, angle = .35, pitch = -.32, elapsed = 0;
     let visible = true;
 
     const draw = () => {
       context.clearRect(0, 0, width, height);
       if (!width || !height) return;
-      const scale = Math.min(width, height) / 14.8;
-      const cos = Math.cos(angle), sin = Math.sin(angle);
-      // Slow nod on the tilt axis so the ring's perspective changes as the molecule spins.
-      const tilt = -.32 + Math.sin(elapsed / 5200) * .16;
+      // Breathing: the whole model swells and settles by two percent.
+      const scale = Math.min(width, height) / 14.8 * (1 + Math.sin(elapsed / 6100) * .02);
+      // A true tumble: a steady spin about the vertical axis, a slower end-over-end turn about the
+      // horizontal axis, and a roll that swings back and forth.
+      const yaw = angle;
+      const tilt = pitch;
+      const roll = Math.sin(elapsed / 7300) * .3;
+      // Drift: the model floats around its anchor point.
+      const centerX = width / 2 + Math.sin(elapsed / 4100) * width * .012;
+      const centerY = height / 2 + Math.sin(elapsed / 3300) * height * .02;
+      const cosY = Math.cos(yaw), sinY = Math.sin(yaw), cosT = Math.cos(tilt), sinT = Math.sin(tilt), cosR = Math.cos(roll), sinR = Math.sin(roll);
       const points = atoms.map(atom => {
         const [x, y, z] = atom.position;
-        const rx = x * cos + z * sin;
-        const rz = -x * sin + z * cos;
-        const ry = y * Math.cos(tilt) - rz * Math.sin(tilt);
-        const depth = y * Math.sin(tilt) + rz * Math.cos(tilt);
+        const rx = x * cosY + z * sinY;
+        const rz = -x * sinY + z * cosY;
+        const ry = y * cosT - rz * sinT;
+        const depth = y * sinT + rz * cosT;
+        const fx = rx * cosR - ry * sinR;
+        const fy = rx * sinR + ry * cosR;
         const perspective = 34 / (34 - depth);
-        return { x: width / 2 + rx * scale * perspective, y: height / 2 - ry * scale * perspective, z: depth, radius: elements[atom.element].radius * scale * perspective, element: atom.element };
+        return { x: centerX + fx * scale * perspective, y: centerY - fy * scale * perspective, z: depth, radius: elements[atom.element].radius * scale * perspective, element: atom.element };
       });
+      // Aerial perspective: atoms at the back fade slightly, so depth reads at a glance.
+      const fade = (z: number) => Math.min(1, Math.max(.62, .92 + z * .055));
       const shapes: { z: number; paint: () => void }[] = [];
       for (const bond of bonds) {
         const a = points[bond.from], b = points[bond.to];
@@ -56,6 +67,7 @@ export default function HeroMolecule() {
         for (let part = 0; part < 8; part++) {
           const t = part / 8, end = (part + 1) / 8;
           shapes.push({ z: a.z + (b.z - a.z) * (t + end) / 2, paint: () => {
+            context.globalAlpha = fade(a.z + (b.z - a.z) * (t + end) / 2);
             for (let line = 0; line < bond.order; line++) {
               const offset = bond.order === 2 ? (line === 0 ? -1 : 1) * scale * .085 : 0;
               context.beginPath();
@@ -71,6 +83,7 @@ export default function HeroMolecule() {
       }
       for (const point of points) {
         shapes.push({ z: point.z, paint: () => {
+          context.globalAlpha = fade(point.z);
           const colors = elements[point.element];
           const gradient = context.createRadialGradient(point.x - point.radius * .35, point.y - point.radius * .4, point.radius * .05, point.x, point.y, point.radius);
           gradient.addColorStop(0, colors.light);
@@ -83,12 +96,14 @@ export default function HeroMolecule() {
         } });
       }
       shapes.sort((a, b) => a.z - b.z).forEach(shape => shape.paint());
+      context.globalAlpha = 1;
     };
 
     const tick = (now: number) => {
       if (previous) {
         const step = Math.min(now - previous, 64);
         angle += step * Math.PI * 2 / 12000;
+        pitch += step * Math.PI * 2 / 29000;
         elapsed += step;
       }
       previous = now;
