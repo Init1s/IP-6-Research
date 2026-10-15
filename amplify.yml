@@ -9,7 +9,8 @@ frontend:
         # Amplify serves the export at the domain root, so build without the /IP-6 base path
         # that the GitHub Pages deployment uses.
         - export SITE_TARGET=sites
-        - export SITE_URL="https://${AWS_BRANCH}.${AWS_APP_ID}.amplifyapp.com"
+        # Public origin for canonical links and robots.txt.
+        - export SITE_URL="https://ip-6.net"
         - npm run build
   artifacts:
     # The app runs on the WEB_COMPUTE platform, which requires the .next folder.
