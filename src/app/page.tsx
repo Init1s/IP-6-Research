@@ -55,20 +55,22 @@ const papers = [
 export default function HomePage() {
   return <div className="research-home">
     <section className="research-hero" aria-labelledby="home-title">
-      <div className="hero-animation"><HeroOrbit/></div>
       <div className="research-introduction">
-        <div className="introduction-copy">
-          <h1 id="home-title">IP6 <span>&amp; inositol.</span></h1>
-          <p className="introduction-lede">Molecular mechanisms, experimental findings, and human studies.</p>
-          <div className="hero-overview"><a className="button hero-research-link" href="#papers">Explore the research <ArrowRight size={18}/></a></div>
+        <div className="hero-opening">
+          <div className="introduction-copy">
+            <h1 id="home-title">IP6 <span>&amp; inositol.</span></h1>
+            <p className="introduction-lede">Molecular mechanisms, experimental findings, and human studies.</p>
+            <div className="hero-overview"><a className="button hero-research-link" href="#papers">Explore the research <ArrowRight size={18}/></a></div>
+          </div>
+          <div className="hero-animation"><HeroOrbit/></div>
         </div>
         <aside className="hero-facts" aria-label="About the research">
-          <p><strong>What IP6 is</strong>A phosphate-rich molecule found in cereal grains, legumes, and seeds, and present in human cells.</p>
-          <p><strong>How it is studied</strong>Cell cultures, animal experiments, and human studies each answer a different kind of question.</p>
-          <p><strong>Six research areas</strong>From molecular mechanisms to clinical investigations.</p>
+          <p><strong>Where it comes from</strong>Rice bran and corn are sources described in the original collection for extraction of IP6 and inositol.</p>
+          <p><strong>Why add inositol</strong>The original research premise was that adding inositol could influence the pool of lower inositol phosphates, including molecules involved in cellular signaling.</p>
+          <p><strong>Reading the evidence</strong>Start with the original publications and examine the study design, participants or model, formulation, and outcomes.</p>
         </aside>
       </div>
-      <div className="hero-foundation wrap"><div className="hero-figure-caption"><p><strong>Figure 1.</strong> Inositol hexaphosphate, C<sub>6</sub>H<sub>18</sub>O<sub>24</sub>P<sub>6</sub>: six phosphate groups bonded to a six-carbon inositol ring.</p><div className="atom-key" aria-label="Atom colors"><span><i className="carbon"/>Carbon</span><span><i className="hydrogen"/>Hydrogen</span><span><i className="oxygen"/>Oxygen</span><span><i className="phosphorus"/>Phosphorus</span></div></div></div>
+      <div className="hero-foundation wrap"><div className="hero-figure-caption"><p tabIndex={0}><strong>Figure 1.</strong> Inositol hexaphosphate, C<sub>6</sub>H<sub>18</sub>O<sub>24</sub>P<sub>6</sub>: six phosphate groups bonded to a six-carbon inositol ring.</p><div className="atom-key" aria-label="Atom colors"><span><i className="carbon"/>Carbon</span><span><i className="hydrogen"/>Hydrogen</span><span><i className="oxygen"/>Oxygen</span><span><i className="phosphorus"/>Phosphorus</span></div></div></div>
     </section>
     <nav className="research-jump-nav wrap" aria-label="Research collection"><a href="#guide">Start here</a><a href="#topics">Research topics</a><a href="#papers">Selected papers</a><a href="#background">Key terms</a></nav>
 
