@@ -46,8 +46,9 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 /* Image-led research opening with a separately presented molecular model. */
 .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .research-hero{position:relative;isolation:isolate;background:#fff;color:var(--ink);overflow:hidden}
-.research-hero{--caption-row:84px;--orbit:min(calc(100vw - 32px),calc(100svh - 88px - var(--caption-row)))}
-.hero-animation{position:absolute;inset:0 0 var(--caption-row);z-index:-1;background:transparent}
+/* --gap keeps the orbit clear of the header; --cap is the caption row under it. */
+.research-hero{--gap:20px;--cap:64px;--orbit:min(calc(100vw - 32px),calc(100svh - 88px - var(--cap) - var(--gap)))}
+.hero-animation{position:absolute;inset:var(--gap) 0 var(--cap);z-index:-1;background:transparent}
 .hero-animation .hero-molecule-stage{height:100%;width:100%}
 /* Orbit diagram: the six research areas, equally weighted on one ring around the IP6 model. */
 .hero-orbit{position:absolute;top:50%;left:50%;width:var(--orbit);aspect-ratio:1;transform:translate(-50%,-50%)}
@@ -64,16 +65,17 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .hero-orbit-core{position:absolute;left:50%;top:50%;width:80%;height:80%;transform:translate(-50%,-50%)}
 .hero-orbit-core .hero-molecule-stage{height:100%}
 /* The hero and its figure caption fit in the first screen, even on short laptop windows. */
-.research-introduction{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:max(380px,calc(100svh - 88px - var(--caption-row)));padding-block:0}
-.hero-foundation{min-height:var(--caption-row)}
+.research-introduction{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:max(380px,calc(100svh - 88px - var(--cap)));padding-block:0}
+.hero-foundation{min-height:var(--cap)}
 /* Text beside the orbit: the title on the left, three facts from the collection on the right. */
 .hero-facts p{font-size:.9rem;line-height:1.55;color:var(--muted)}
 .hero-facts p+p{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
 .hero-facts strong{display:block;font:400 1.6rem/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.02em;color:var(--navy);margin-bottom:6px}
-@media(min-width:1000px){.research-introduction{flex-direction:row;align-items:center;justify-content:space-between;padding-inline:32px}.research-hero{--side:calc((100vw - 64px - var(--orbit)) / 2 - 32px)}.introduction-copy,.hero-facts{width:var(--side);max-width:340px}.research-introduction .introduction-copy h1{font-size:min(4.4rem,calc(var(--side) / 8.4))}.research-introduction .introduction-lede{font-size:.98rem}}
+@media(min-width:1000px){.research-hero{--pad:max(32px,min(max(48px,calc((100vw - 1240px) / 2)),calc((100vw - var(--orbit)) / 2 - 200px)));--side:calc((100vw - var(--orbit)) / 2 - var(--pad) - 20px)}.research-introduction{flex-direction:row;align-items:center;justify-content:space-between;padding-inline:var(--pad);padding-top:var(--gap)}.introduction-copy,.hero-facts{width:var(--side);max-width:340px}.research-introduction .introduction-copy h1{font-size:clamp(2.2rem,calc(var(--side) / 5),4.2rem)}.research-introduction .introduction-copy h1 span{white-space:normal}.research-introduction .hero-research-link{white-space:nowrap;padding-inline:18px;font-size:.85rem}.research-introduction .hero-facts strong{font-size:1.35rem}.research-introduction .introduction-lede{font-size:.98rem}}
 @media(min-width:701px) and (max-width:999px){.research-hero{display:flex;flex-direction:column}.research-introduction{display:contents}.introduction-copy{order:1;padding:40px 32px 8px}.hero-animation{position:relative;inset:auto;order:2;height:var(--orbit)}.hero-facts{order:3;padding:16px 32px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.hero-facts p+p{margin-top:0;padding-top:0;border-top:0}.hero-foundation{order:4}}
 /* Wide screens: caption and atom key share one row, leaving more height for the orbit. */
-@media(min-width:1100px){.research-hero{--caption-row:46px}.hero-foundation{padding-block:10px}.hero-figure-caption{display:flex;align-items:center;justify-content:center;gap:28px}.hero-figure-caption .atom-key{margin-top:0}}
+@media(max-width:1149px){.research-hero{--pad:32px}}
+@media(min-width:1100px){.research-hero{--cap:28px;--gap:18px}.hero-foundation{padding-block:3px;line-height:1.2}.hero-figure-caption p,.hero-figure-caption .atom-key,.hero-figure-caption .atom-key span{line-height:1.2}.hero-figure-caption{display:flex;align-items:center;justify-content:center;gap:28px}.hero-figure-caption .atom-key{margin-top:0}}
 .introduction-copy .eyebrow{color:var(--muted);font-size:.68rem;letter-spacing:.16em}
 .introduction-copy h1{font-family:Georgia,Times New Roman,serif;font-weight:400;font-size:clamp(3.2rem,min(7.6vw,11.5svh),7rem);line-height:.98;letter-spacing:-.055em;margin:clamp(14px,3svh,30px) 0 clamp(14px,3svh,28px)}
 .introduction-copy h1 span{display:block;color:var(--gold-deep);white-space:nowrap}
@@ -81,7 +83,7 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .hero-overview{margin-top:28px}
 .hero-research-link{background:var(--navy);border-color:var(--navy);color:#fff;border-radius:0}
 .hero-research-link:hover{background:#224760;border-color:#224760}
-.hero-foundation{display:flex;justify-content:center;align-items:flex-start;gap:20px;padding-block:12px;font-size:.68rem;color:var(--muted)}
+.hero-foundation{display:flex;justify-content:center;align-items:center;gap:20px;padding-block:6px;font-size:.68rem;color:var(--muted)}
 .hero-figure-caption{max-width:none;margin-inline:auto;text-align:center}
 /* The figure caption always stays on one line; its size follows the viewport so it never wraps. */
 .hero-figure-caption p{white-space:nowrap;font-size:min(.78rem,1.62vw);line-height:1.6;color:var(--muted)}
