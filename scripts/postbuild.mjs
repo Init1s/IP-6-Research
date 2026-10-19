@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 const base=process.env.SITE_TARGET === 'sites' ? '' : (process.env.NEXT_PUBLIC_BASE_PATH ?? '/IP-6');
-const origin=(process.env.SITE_URL || 'https://taandrews.github.io/IP-6').replace(/\/$/,'');
+// Canonical links and the sitemap always name the public site, whichever host serves this copy.
+const origin='https://www.ip-6.net';
 const legacy={'about-us.html':'about','other-benefits.html':'benefits','what-s-new-.html':'news','The_Science.html':'science','the-scientist.html':'scientist','faq.html':'faq','contact-us.html':'contact'};
 for(const [old,route] of Object.entries(legacy)){
  const target=`${base}/${route}/`;

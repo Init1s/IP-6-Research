@@ -44,23 +44,50 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 
 /* A literature-oriented home page: topic index, citations, and scientific context. */
 /* Image-led research opening with a separately presented molecular model. */
+.visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .research-hero{position:relative;isolation:isolate;background:#fff;color:var(--ink);overflow:hidden}
-.hero-animation{position:absolute;inset:0 0 0 42%;z-index:-1;background:transparent}
+.research-hero{--caption-row:84px;--orbit:min(calc(100vw - 32px),calc(100svh - 88px - var(--caption-row)))}
+.hero-animation{position:absolute;inset:0 0 var(--caption-row);z-index:-1;background:transparent}
 .hero-animation .hero-molecule-stage{height:100%;width:100%}
-.research-introduction{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:590px;padding-block:60px}
+/* Orbit diagram: the six research areas, equally weighted on one ring around the IP6 model. */
+.hero-orbit{position:absolute;top:50%;left:50%;width:var(--orbit);aspect-ratio:1;transform:translate(-50%,-50%)}
+.hero-orbit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orbit-faint{fill:none;stroke:var(--line);stroke-width:1;opacity:.6}
+.orbit-line{fill:none;stroke:#cfd7de;stroke-width:1}
+.orbit-spoke{stroke:#d9dfe4;stroke-width:1}
+.orbit-node.gold{fill:var(--gold)}
+.orbit-label{font:500 21px/1 var(--font-sans);letter-spacing:.03em;fill:#4f5d6b}
+.orbit-ring{transform-origin:400px 400px;animation:orbit-turn linear infinite}
+.orbit-d{animation-duration:320s}.orbit-slow{animation-duration:180s}.orbit-slow-reverse{animation-duration:240s;animation-direction:reverse}
+.orbit-dot{fill:var(--navy);opacity:.35}
+@keyframes orbit-turn{to{transform:rotate(360deg)}}
+.hero-orbit-core{position:absolute;left:50%;top:50%;width:80%;height:80%;transform:translate(-50%,-50%)}
+.hero-orbit-core .hero-molecule-stage{height:100%}
+/* The hero and its figure caption fit in the first screen, even on short laptop windows. */
+.research-introduction{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:max(380px,calc(100svh - 88px - var(--caption-row)));padding-block:0}
+.hero-foundation{min-height:var(--caption-row)}
+/* Text beside the orbit: the title on the left, three facts from the collection on the right. */
+.hero-facts p{font-size:.9rem;line-height:1.55;color:var(--muted)}
+.hero-facts p+p{margin-top:22px;padding-top:22px;border-top:1px solid var(--line)}
+.hero-facts strong{display:block;font:400 1.6rem/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.02em;color:var(--navy);margin-bottom:6px}
+@media(min-width:1000px){.research-introduction{flex-direction:row;align-items:center;justify-content:space-between;padding-inline:32px}.research-hero{--side:calc((100vw - 64px - var(--orbit)) / 2 - 32px)}.introduction-copy,.hero-facts{width:var(--side);max-width:340px}.research-introduction .introduction-copy h1{font-size:min(4.4rem,calc(var(--side) / 8.4))}.research-introduction .introduction-lede{font-size:.98rem}}
+@media(min-width:701px) and (max-width:999px){.research-hero{display:flex;flex-direction:column}.research-introduction{display:contents}.introduction-copy{order:1;padding:40px 32px 8px}.hero-animation{position:relative;inset:auto;order:2;height:var(--orbit)}.hero-facts{order:3;padding:16px 32px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.hero-facts p+p{margin-top:0;padding-top:0;border-top:0}.hero-foundation{order:4}}
+/* Wide screens: caption and atom key share one row, leaving more height for the orbit. */
+@media(min-width:1100px){.research-hero{--caption-row:46px}.hero-foundation{padding-block:10px}.hero-figure-caption{display:flex;align-items:center;justify-content:center;gap:28px}.hero-figure-caption .atom-key{margin-top:0}}
 .introduction-copy .eyebrow{color:var(--muted);font-size:.68rem;letter-spacing:.16em}
-.introduction-copy h1{font-family:Georgia,Times New Roman,serif;font-weight:400;font-size:clamp(4rem,7.6vw,7rem);line-height:.98;letter-spacing:-.055em;margin:30px 0 28px}
+.introduction-copy h1{font-family:Georgia,Times New Roman,serif;font-weight:400;font-size:clamp(3.2rem,min(7.6vw,11.5svh),7rem);line-height:.98;letter-spacing:-.055em;margin:clamp(14px,3svh,30px) 0 clamp(14px,3svh,28px)}
 .introduction-copy h1 span{display:block;color:var(--gold-deep);white-space:nowrap}
 .introduction-lede{font-size:1.05rem;line-height:1.75;color:var(--muted);max-width:420px}
 .hero-overview{margin-top:28px}
 .hero-research-link{background:var(--navy);border-color:var(--navy);color:#fff;border-radius:0}
 .hero-research-link:hover{background:#224760;border-color:#224760}
-.hero-foundation{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-block:20px;font-size:.68rem;color:var(--muted)}
-.hero-figure-caption{max-width:470px;text-align:right}
-.hero-figure-caption p{font-size:.78rem;line-height:1.6;color:var(--muted)}
+.hero-foundation{display:flex;justify-content:center;align-items:flex-start;gap:20px;padding-block:12px;font-size:.68rem;color:var(--muted)}
+.hero-figure-caption{max-width:none;margin-inline:auto;text-align:center}
+/* The figure caption always stays on one line; its size follows the viewport so it never wraps. */
+.hero-figure-caption p{white-space:nowrap;font-size:min(.78rem,1.62vw);line-height:1.6;color:var(--muted)}
 .hero-figure-caption p strong{color:var(--ink);font-weight:600}
 .hero-figure-caption sub{font-size:.7em;line-height:0}
-.hero-figure-caption .atom-key{justify-content:flex-end;margin-top:8px}
+.hero-figure-caption .atom-key{justify-content:center;margin-top:8px}
 .hero-photo-credit{text-align:right;line-height:1.7}.hero-photo-credit a{text-decoration:underline;text-underline-offset:3px}
 .hero-foundation>span:first-child{text-transform:uppercase;letter-spacing:.1em;color:var(--gold-deep)}
 .research-reference-column .hero-molecule{margin-block:20px 24px}
@@ -165,7 +192,7 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .tag{display:inline-block;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--gold-deep);line-height:1.5}
 .inline-refs{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px}
 .inline-refs a{font-size:.85rem;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
-.evidence-note{background:var(--mist);border-left:2px solid var(--gold);padding:22px 24px;color:var(--muted);font-size:.9rem;margin-bottom:36px}
+.evidence-note{background:#fff;border:1px solid var(--line);border-left:2px solid var(--gold);padding:22px 24px;color:var(--muted);font-size:.9rem;margin-bottom:36px}
 .evidence-note strong{display:block;color:var(--ink);margin-bottom:6px}
 .timeline{margin-top:30px;border-top:1px solid var(--line)}
 .timeline-row{display:grid;grid-template-columns:80px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
@@ -203,7 +230,7 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
 .contact-detail h2{font:600 .72rem/1.5 var(--font-sans);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .contact-detail a{font-size:1.1rem;overflow-wrap:anywhere}
 .contact-detail .inline-refs{margin-top:0}
-.form-panel{background:var(--mist);padding:36px}
+.form-panel{background:#fff;border:1px solid var(--line);padding:36px}
 .form-panel h2{font-size:1.5rem;margin-bottom:14px}
 .form-panel>p{color:var(--muted);font-size:.9rem;margin-bottom:26px}
 .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -266,11 +293,12 @@ img{max-width:100%;height:auto}svg{flex-shrink:0}section[id],article[id]{scroll-
   .introduction-copy .eyebrow{grid-row:1;margin-inline:20px;font-size:.6rem;letter-spacing:.12em}
   .introduction-copy h1{grid-row:2;margin:12px 20px 0;font-size:clamp(2.15rem,9.5vw,3.4rem);line-height:1.12;letter-spacing:-.045em}
   .introduction-copy h1 span{display:inline}
-  .hero-animation{position:relative;inset:auto;grid-row:3;width:100%;height:260px;margin-block:6px 2px;background:transparent;z-index:auto}
+  .hero-animation{position:relative;inset:auto;grid-row:3;width:100%;height:min(100vw,72svh);margin-block:6px 2px;background:transparent;z-index:auto}
   .introduction-lede{grid-row:4;margin:0 20px;font-size:.94rem;line-height:1.65;max-width:none}
   .hero-overview{grid-row:5;width:auto;margin:20px 20px 0}
   .hero-research-link{min-height:48px;font-size:.88rem;width:100%;justify-content:space-between}
-  .hero-foundation{grid-row:6;padding-block:22px 18px;font-size:.65rem;gap:12px}
+  .hero-facts{grid-row:6;margin:28px 20px 0}
+  .hero-foundation{grid-row:7;padding-block:22px 18px;font-size:.65rem;gap:12px}
   .hero-figure-caption{text-align:left;max-width:none}
   .hero-figure-caption .atom-key{justify-content:flex-start}
   .hero-foundation{flex-direction:column;align-items:flex-start}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import HeroMolecule from "@/components/HeroMolecule";
+import HeroOrbit from "@/components/HeroOrbit";
 import { asset } from "@/lib/site";
 
 const topics = [
@@ -18,6 +18,14 @@ const chapters: [string, string, string, string][] = [
   ["Where the research began", "Experiments started at the University of Maryland School of Medicine in 1985.", "/scientist", "Meet the scientist"],
 ];
 const papers = [
+  {
+    pmid: "", type: "Review", year: "2026",
+    title: "IP6 and breast cancer: efficacy, mechanisms, and clinical application",
+    citation: "Chatree S, Saverino A, Chatsiriwech J, et al. Medical Research Archives. 2026;14(7).",
+    design: "Review of preclinical and clinical studies.",
+    summary: "The authors review the evidence on IP6 and inositol in breast cancer: effects on proliferation, differentiation, and apoptosis of breast cancer cells, the signaling pathways involved, and clinical reports of IP6 with inositol given alongside chemotherapy. They conclude that larger clinical trials are needed.",
+    doi: "10.18103/mra.2026.0421", fullText: "",
+  },
   {
     pmid: "20152024", type: "Human study", year: "2010",
     title: "IP6 + inositol during breast cancer chemotherapy",
@@ -47,19 +55,20 @@ const papers = [
 export default function HomePage() {
   return <div className="research-home">
     <section className="research-hero" aria-labelledby="home-title">
-      <div className="hero-animation"><HeroMolecule/></div>
-      <div className="research-introduction wrap">
+      <div className="hero-animation"><HeroOrbit/></div>
+      <div className="research-introduction">
         <div className="introduction-copy">
-          <p className="eyebrow">Molecular science. Published evidence.</p>
           <h1 id="home-title">IP6 <span>&amp; inositol.</span></h1>
-          <p className="introduction-lede">Molecular mechanisms, experimental findings, and human studies. Explore the science of IP6 and inositol.</p>
+          <p className="introduction-lede">Molecular mechanisms, experimental findings, and human studies.</p>
+          <div className="hero-overview"><a className="button hero-research-link" href="#papers">Explore the research <ArrowRight size={18}/></a></div>
         </div>
-
-        <div className="hero-overview">
-          <a className="button hero-research-link" href="#papers">Explore the research <ArrowRight size={18}/></a>
-        </div>
+        <aside className="hero-facts" aria-label="About the research">
+          <p><strong>What IP6 is</strong>A phosphate-rich molecule found in cereal grains, legumes, and seeds, and present in human cells.</p>
+          <p><strong>How it is studied</strong>Cell cultures, animal experiments, and human studies each answer a different kind of question.</p>
+          <p><strong>Six research areas</strong>From molecular mechanisms to clinical investigations.</p>
+        </aside>
       </div>
-      <div className="hero-foundation wrap"><span>IP6 research since 1985</span><div className="hero-figure-caption"><p><strong>Figure 1.</strong> Inositol hexaphosphate, C<sub>6</sub>H<sub>18</sub>O<sub>24</sub>P<sub>6</sub>: six phosphate groups bonded to a six-carbon inositol ring.</p><div className="atom-key" aria-label="Atom colors"><span><i className="carbon"/>Carbon</span><span><i className="hydrogen"/>Hydrogen</span><span><i className="oxygen"/>Oxygen</span><span><i className="phosphorus"/>Phosphorus</span></div></div></div>
+      <div className="hero-foundation wrap"><div className="hero-figure-caption"><p><strong>Figure 1.</strong> Inositol hexaphosphate, C<sub>6</sub>H<sub>18</sub>O<sub>24</sub>P<sub>6</sub>: six phosphate groups bonded to a six-carbon inositol ring.</p><div className="atom-key" aria-label="Atom colors"><span><i className="carbon"/>Carbon</span><span><i className="hydrogen"/>Hydrogen</span><span><i className="oxygen"/>Oxygen</span><span><i className="phosphorus"/>Phosphorus</span></div></div></div>
     </section>
     <nav className="research-jump-nav wrap" aria-label="Research collection"><a href="#guide">Start here</a><a href="#topics">Research topics</a><a href="#papers">Selected papers</a><a href="#background">Key terms</a></nav>
 
@@ -77,13 +86,13 @@ export default function HomePage() {
         <section className="primary-literature" id="papers" aria-labelledby="papers-title">
           <div className="index-heading"><h2 id="papers-title">Selected primary literature</h2></div>
           <p className="section-description">Studies from the research collection. Publication dates refer to the original papers.</p>
-          <div className="paper-list">{papers.map(paper => <article className="paper-record" key={paper.pmid}>
-            <div className="paper-classification"><span>{paper.type}</span><span>{paper.year}</span><span>PMID: {paper.pmid}</span></div>
-            <h3><a href={`https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}/`} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
+          <div className="paper-list">{papers.map(paper => <article className="paper-record" key={paper.pmid || paper.doi}>
+            <div className="paper-classification"><span>{paper.type}</span><span>{paper.year}</span>{paper.pmid && <span>PMID: {paper.pmid}</span>}</div>
+            <h3><a href={paper.pmid ? `https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}/` : `https://doi.org/${paper.doi}`} target="_blank" rel="noopener noreferrer">{paper.title}</a></h3>
             <p className="paper-citation">{paper.citation}</p>
             <p className="paper-design"><strong>Study design</strong> {paper.design}</p>
             <p className="paper-summary">{paper.summary}</p>
-            <div className="paper-links"><a href={`https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}/`} target="_blank" rel="noopener noreferrer">PubMed abstract <ArrowUpRight size={15}/></a>{paper.fullText && <a href={paper.fullText} target="_blank" rel="noopener noreferrer">Full text <ArrowUpRight size={15}/></a>}{paper.doi && <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener noreferrer">DOI <ArrowUpRight size={15}/></a>}</div>
+            <div className="paper-links">{paper.pmid && <a href={`https://pubmed.ncbi.nlm.nih.gov/${paper.pmid}/`} target="_blank" rel="noopener noreferrer">PubMed abstract <ArrowUpRight size={15}/></a>}{paper.fullText && <a href={paper.fullText} target="_blank" rel="noopener noreferrer">Full text <ArrowUpRight size={15}/></a>}{paper.doi && <a href={`https://doi.org/${paper.doi}`} target="_blank" rel="noopener noreferrer">DOI <ArrowUpRight size={15}/></a>}</div>
           </article>)}</div>
           <div className="literature-more"><Link href="/news">Explore the research archive <ArrowRight size={17}/></Link><a href="https://pubmed.ncbi.nlm.nih.gov/?term=inositol+hexaphosphate" target="_blank" rel="noopener noreferrer">Find further literature on PubMed <ArrowUpRight size={16}/></a></div>
         </section>
